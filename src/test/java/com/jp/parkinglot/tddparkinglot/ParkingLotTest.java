@@ -20,4 +20,18 @@ public class ParkingLotTest {
         // then
         assertEquals(2, count);
     }
+
+    @Test
+    public void should_return_1_when_ask_for_the_available_rooms_count_of_a_parkingLot_which_has_2_rooms_and_after_parking_one_car() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot(2);
+        Car car = new Car("A123");
+        parkingLot.park(car);
+        // when
+        int count = parkingLot.getAvailableCount();
+        // then
+        assertEquals(1, count);
+    }
+
+
 }
