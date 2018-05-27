@@ -20,7 +20,7 @@ public class ParkingLotTest {
         //given
         ParkingLot parkingLot = new ParkingLot(2);
         // when
-        int count = parkingLot.getAvailableCount();
+        int count = parkingLot.getAvailableRoom();
         // then
         assertEquals(2, count);
     }
@@ -32,7 +32,7 @@ public class ParkingLotTest {
         Car car = new Car("A123");
         parkingLot.park(car);
         // when
-        int count = parkingLot.getAvailableCount();
+        int count = parkingLot.getAvailableRoom();
         // then
         assertEquals(1, count);
     }

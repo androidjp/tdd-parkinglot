@@ -20,6 +20,21 @@ import static org.junit.Assert.assertEquals;
 public class ParkingBoyTest {
 
     @Test
+    public void should_return_3_when_check_available_room_to_a_parkingBoy_as_he_has_both_a_parkingLot_with_one_room_and_a_parkingLot_has_two_room() {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        ParkingLot p1 = new ParkingLot(1);
+        ParkingLot p2 = new ParkingLot(2);
+        parkingLots.add(p1);
+        parkingLots.add(p2);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        //when
+        int count = parkingBoy.getAvailableRoom();
+        //then
+        assertEquals(3, count);
+    }
+
+    @Test
     public void should_park_the_cars_in_order_of_parkingLot() throws ParkingLotFilledException {
         List<ParkingLot> parkingLots = new ArrayList<>();
         ParkingLot p1 = new ParkingLot(2);
@@ -32,26 +47,26 @@ public class ParkingBoyTest {
         Car carB = new Car("B");
         Car carC = new Car("C");
 
-        assertEquals(2, p1.getAvailableCount());
-        assertEquals(2, p2.getAvailableCount());
+        assertEquals(2, p1.getAvailableRoom());
+        assertEquals(2, p2.getAvailableRoom());
 
         CarTicket ticketA = parkingBoy.park(carA);
-        assertEquals(1, p1.getAvailableCount());
-        assertEquals(2, p2.getAvailableCount());
+        assertEquals(1, p1.getAvailableRoom());
+        assertEquals(2, p2.getAvailableRoom());
 
         CarTicket ticketB = parkingBoy.park(carB);
         CarTicket ticketC = parkingBoy.park(carC);
 
-        assertEquals(0, p1.getAvailableCount());
-        assertEquals(1, p2.getAvailableCount());
+        assertEquals(0, p1.getAvailableRoom());
+        assertEquals(1, p2.getAvailableRoom());
 
         parkingBoy.pickUp(ticketB);
-        assertEquals(1, p1.getAvailableCount());
-        assertEquals(1, p2.getAvailableCount());
+        assertEquals(1, p1.getAvailableRoom());
+        assertEquals(1, p2.getAvailableRoom());
 
         parkingBoy.park(new Car("D"));
-        assertEquals(0, p1.getAvailableCount());
-        assertEquals(1, p2.getAvailableCount());
+        assertEquals(0, p1.getAvailableRoom());
+        assertEquals(1, p2.getAvailableRoom());
     }
 
     @Test(expected = CarNotFoundException.class)

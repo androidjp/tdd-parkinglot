@@ -22,7 +22,7 @@ public class ParkingBoy {
 
     public CarTicket park(Car car) throws ParkingLotFilledException {
         return this.parkingLots.stream()
-                .filter(parkingLot -> parkingLot.getAvailableCount() > 0)
+                .filter(parkingLot -> parkingLot.getAvailableRoom() > 0)
                 .findFirst()
                 .orElseThrow(ParkingLotFilledException::new)
                 .park(car);
@@ -39,5 +39,13 @@ public class ParkingBoy {
 
     public boolean hasCar(CarTicket ticket) {
         return this.parkingLots.stream().anyMatch(parkingLot -> parkingLot.hasCar(ticket));
+    }
+
+    public int getAvailableRoom() {
+        int count = 0;
+        for (ParkingLot parkingLot:parkingLots){
+            count += parkingLot.getAvailableRoom();
+        }
+        return count;
     }
 }

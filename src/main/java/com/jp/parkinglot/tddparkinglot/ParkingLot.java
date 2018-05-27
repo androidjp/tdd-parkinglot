@@ -25,12 +25,12 @@ public class ParkingLot {
         this.curTicketNum = 100;
     }
 
-    public int getAvailableCount() {
+    public int getAvailableRoom() {
         return this.parkingRoomCount - this.parkedCarMap.size();
     }
 
     public CarTicket park(Car car) throws ParkingLotFilledException {
-        if (this.getAvailableCount() <= 0) {
+        if (this.getAvailableRoom() <= 0) {
             throw new ParkingLotFilledException();
         }
         CarTicket carTicket = new CarTicket(this.curTicketNum++);
