@@ -22,7 +22,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_1_when_ask_for_the_available_rooms_count_of_a_parkingLot_which_has_2_rooms_and_after_parking_one_car() throws Exception {
+    public void should_return_1_when_ask_for_the_available_rooms_count_of_a_parkingLot_which_has_2_rooms_and_after_parking_one_car() throws Exception, ParkingLotFilledException {
         //given
         ParkingLot parkingLot = new ParkingLot(2);
         Car car = new Car("A123");
@@ -34,7 +34,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_ticket$100$_when_park_first_car() {
+    public void should_return_ticket$100$_when_park_first_car() throws ParkingLotFilledException {
         //given
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car("A123");
@@ -45,7 +45,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_ticket$102$_when_park_third_car() {
+    public void should_return_ticket$102$_when_park_third_car() throws ParkingLotFilledException {
         //given
         ParkingLot parkingLot = new ParkingLot(3);
         parkingLot.park(new Car("A"));
@@ -57,7 +57,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_car_when_give_the_ticket() {
+    public void should_return_car_when_give_the_ticket() throws ParkingLotFilledException {
         //given
         ParkingLot parkingLot = new ParkingLot(2);
         Car carA = new Car("A");
@@ -73,13 +73,24 @@ public class ParkingLotTest {
     }
 
     @Test(expected = CarNotFoundException.class)
-    public void should_throw_exception_when_pickUp_a_notExisted_car() {
+    public void should_throw_exception_when_pickUp_a_notExisted_car() throws ParkingLotFilledException {
         //given
         ParkingLot parkingLot = new ParkingLot(2);
         CarTicket ticket = parkingLot.park(new Car("A"));
         parkingLot.pickUp(ticket);
         //when
         parkingLot.pickUp(ticket);
+        //then
+    }
+
+    @Test(expected = ParkingLotFilledException.class)
+    public void should_throw_exception_when_the_parkingLot_is_filled_and_still_park_car() throws ParkingLotFilledException {
+        //given
+        ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(new Car("A"));
+        parkingLot.park(new Car("B"));
+        //when
+        parkingLot.park(new Car("C"));
         //then
     }
 }

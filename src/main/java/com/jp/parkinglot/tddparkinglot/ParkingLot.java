@@ -24,7 +24,10 @@ public class ParkingLot {
         return this.parkingRoomCount - this.parkedCarMap.size();
     }
 
-    public CarTicket park(Car car) {
+    public CarTicket park(Car car) throws ParkingLotFilledException {
+        if (this.parkingRoomCount - this.parkedCarMap.size() <= 0) {
+            throw new ParkingLotFilledException();
+        }
         CarTicket carTicket = new CarTicket(this.curTicketNum++);
         this.parkedCarMap.put(carTicket, car);
         return carTicket;
