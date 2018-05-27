@@ -2,6 +2,7 @@ package com.jp.parkinglot.tddparkinglot;
 
 import com.jp.parkinglot.tddparkinglot.bean.Car;
 import com.jp.parkinglot.tddparkinglot.bean.CarTicket;
+import com.jp.parkinglot.tddparkinglot.exception.CarNotFoundException;
 import com.jp.parkinglot.tddparkinglot.exception.ParkingLotFilledException;
 import org.junit.Test;
 
@@ -52,4 +53,20 @@ public class ParkingBoyTest {
         assertEquals(0, p1.getAvailableCount());
         assertEquals(1, p2.getAvailableCount());
     }
+
+    @Test(expected = CarNotFoundException.class)
+    public void should_throw_exception_when_pickUp_a_car_is_not_existed() throws ParkingLotFilledException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        ParkingLot p1 = new ParkingLot(2);
+        parkingLots.add(p1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car carA = new Car("A");
+        CarTicket ticketA = parkingBoy.park(carA);
+        //when
+        parkingBoy.pickUp(ticketA);
+        parkingBoy.pickUp(ticketA);
+        //then
+    }
+    
 }
