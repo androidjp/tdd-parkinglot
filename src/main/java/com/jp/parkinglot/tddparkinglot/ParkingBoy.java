@@ -21,24 +21,23 @@ public class ParkingBoy {
     }
 
     public CarTicket park(Car car) throws ParkingLotFilledException {
-        for (ParkingLot parkingLot:this.parkingLots){
-            if (parkingLot.getAvailableCount()>0){
-                return parkingLot.park(car);
-            }
-        }
-        return null;
+        return this.parkingLots.stream()
+                .filter(parkingLot -> parkingLot.getAvailableCount() > 0)
+                .findFirst()
+                .orElseThrow(ParkingLotFilledException::new)
+                .park(car);
     }
 
 
     public Car pickUp(CarTicket ticket) {
-        for (ParkingLot parkingLot: this.parkingLots) {
-            try {
-                Car car = parkingLot.pickUp(ticket);
-                return car;
-            }catch (RuntimeException e){
+        return this.parkingLots.stream()
+                .filter(parkingLot -> parkingLot.hasCar(ticket))
+                .findFirst()
+                .orElseThrow(CarNotFoundException::new)
+                .pickUp(ticket);
+    }
 
-            }
-        }
-        throw new CarNotFoundException();
+    public boolean hasCar(CarTicket ticket) {
+        return this.parkingLots.stream().anyMatch(parkingLot -> parkingLot.hasCar(ticket));
     }
 }

@@ -30,7 +30,7 @@ public class ParkingLot {
     }
 
     public CarTicket park(Car car) throws ParkingLotFilledException {
-        if (this.parkingRoomCount - this.parkedCarMap.size() <= 0) {
+        if (this.getAvailableCount() <= 0) {
             throw new ParkingLotFilledException();
         }
         CarTicket carTicket = new CarTicket(this.curTicketNum++);
@@ -39,10 +39,14 @@ public class ParkingLot {
     }
 
     public Car pickUp(CarTicket ticket) {
-        if (this.parkedCarMap.containsKey(ticket)) {
+        if (hasCar(ticket)) {
             return this.parkedCarMap.remove(ticket);
         } else {
             throw new CarNotFoundException();
         }
+    }
+
+    public boolean hasCar(CarTicket carTicket) {
+        return this.parkedCarMap.containsKey(carTicket);
     }
 }
