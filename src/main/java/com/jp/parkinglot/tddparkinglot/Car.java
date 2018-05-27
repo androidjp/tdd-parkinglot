@@ -12,4 +12,10 @@ public class Car {
     public Car(String carNum) {
         this.carNum = carNum;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Car other = (Car) obj;
+        return this.carNum.equals(other.carNum);
+    }
 }

@@ -1,7 +1,7 @@
 package com.jp.parkinglot.tddparkinglot;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: androidjp
@@ -11,17 +11,26 @@ import java.util.List;
  */
 public class ParkingLot {
     private final int parkingRoomCount;
-    private List<Car> carList;
+    private Map<CarTicket, Car> parkedCarMap;
+    private int curTicketNum;
+
     public ParkingLot(int parkingRoomCount) {
         this.parkingRoomCount = parkingRoomCount;
-        this.carList = new ArrayList<>();
+        this.parkedCarMap = new HashMap<>();
+        this.curTicketNum = 100;
     }
 
     public int getAvailableCount() {
-        return this.parkingRoomCount - this.carList.size();
+        return this.parkingRoomCount - this.parkedCarMap.size();
     }
 
-    public void park(Car car) {
-        this.carList.add(car);
+    public CarTicket park(Car car) {
+        CarTicket carTicket = new CarTicket(this.curTicketNum++);
+        this.parkedCarMap.put(carTicket, car);
+        return carTicket;
+    }
+
+    public Car pickUp(CarTicket ticket) {
+        return this.parkedCarMap.remove(ticket);
     }
 }
