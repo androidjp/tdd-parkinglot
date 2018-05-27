@@ -31,6 +31,10 @@ public class ParkingLot {
     }
 
     public Car pickUp(CarTicket ticket) {
-        return this.parkedCarMap.remove(ticket);
+        if (this.parkedCarMap.containsKey(ticket)) {
+            return this.parkedCarMap.remove(ticket);
+        } else {
+            throw new CarNotFoundException();
+        }
     }
 }

@@ -71,4 +71,15 @@ public class ParkingLotTest {
         assertEquals(resCarA, carA);
         assertEquals(resCarB, carB);
     }
+
+    @Test(expected = CarNotFoundException.class)
+    public void should_throw_exception_when_pickUp_a_notExisted_car() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(2);
+        CarTicket ticket = parkingLot.park(new Car("A"));
+        parkingLot.pickUp(ticket);
+        //when
+        parkingLot.pickUp(ticket);
+        //then
+    }
 }
