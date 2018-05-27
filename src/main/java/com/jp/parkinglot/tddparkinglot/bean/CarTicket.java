@@ -1,4 +1,4 @@
-package com.jp.parkinglot.tddparkinglot;
+package com.jp.parkinglot.tddparkinglot.bean;
 
 /**
  * User: androidjp
