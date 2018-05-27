@@ -68,5 +68,23 @@ public class ParkingBoyTest {
         parkingBoy.pickUp(ticketA);
         //then
     }
-    
+
+    @Test(expected = ParkingLotFilledException.class)
+    public void should_throw_exception_when_park_a_car_after_all_parkingLots_are_filled() throws ParkingLotFilledException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        ParkingLot p1 = new ParkingLot(1);
+        ParkingLot p2 = new ParkingLot(2);
+        parkingLots.add(p1);
+        parkingLots.add(p2);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        parkingBoy.park(new Car("A"));
+        parkingBoy.park(new Car("B"));
+        parkingBoy.park(new Car("C"));
+
+        //when
+        parkingBoy.park(new Car("D"));
+
+        //then
+    }
 }
