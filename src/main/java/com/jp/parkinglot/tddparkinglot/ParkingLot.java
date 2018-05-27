@@ -14,7 +14,7 @@ import java.util.Map;
  * Time: 下午11:13
  * Description:
  */
-public class ParkingLot {
+public class ParkingLot implements Parkable {
     private final int parkingRoomCount;
     private Map<CarTicket, Car> parkedCarMap;
     private int curTicketNum;
@@ -25,10 +25,12 @@ public class ParkingLot {
         this.curTicketNum = 100;
     }
 
+    @Override
     public int getAvailableRoom() {
         return this.parkingRoomCount - this.parkedCarMap.size();
     }
 
+    @Override
     public CarTicket park(Car car) throws ParkingLotFilledException {
         if (this.getAvailableRoom() <= 0) {
             throw new ParkingLotFilledException();
@@ -38,6 +40,7 @@ public class ParkingLot {
         return carTicket;
     }
 
+    @Override
     public Car pickUp(CarTicket ticket) {
         if (hasCar(ticket)) {
             return this.parkedCarMap.remove(ticket);
@@ -46,6 +49,7 @@ public class ParkingLot {
         }
     }
 
+    @Override
     public boolean hasCar(CarTicket carTicket) {
         return this.parkedCarMap.containsKey(carTicket);
     }
