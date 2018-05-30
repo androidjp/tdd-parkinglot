@@ -11,10 +11,10 @@ import java.util.List;
  * User: androidjp
  * Date: 2018/5/27
  * Time: 下午7:33
- * Description:
+ * Description: 按照ParkingLot 顺序停车的Boy
  */
 public class ParkingBoy implements Parkable {
-    private final List<ParkingLot> parkingLots;
+    protected final List<ParkingLot> parkingLots;
 
     public ParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
