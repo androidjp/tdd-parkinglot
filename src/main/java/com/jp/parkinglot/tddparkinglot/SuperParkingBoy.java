@@ -4,6 +4,7 @@ import com.jp.parkinglot.tddparkinglot.bean.Car;
 import com.jp.parkinglot.tddparkinglot.bean.CarTicket;
 import com.jp.parkinglot.tddparkinglot.exception.ParkingLotFilledException;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -19,12 +20,9 @@ public class SuperParkingBoy extends ParkingBoy {
 
     @Override
     public CarTicket park(Car car) throws ParkingLotFilledException {
-        ParkingLot maxEmptyRoomRateParkingLot = this.parkingLots.get(0);
-        for (ParkingLot parkingLot : this.parkingLots) {
-            if (maxEmptyRoomRateParkingLot.getAvailableRoomRate() < parkingLot.getAvailableRoomRate()) {
-                maxEmptyRoomRateParkingLot = parkingLot;
-            }
-        }
-        return maxEmptyRoomRateParkingLot.park(car);
+        return this.parkingLots.stream()
+                .max(Comparator.comparingDouble(ParkingLot::getAvailableRoomRate))
+                .orElse(this.parkingLots.get(0))
+                .park(car);
     }
 }
