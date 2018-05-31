@@ -53,4 +53,8 @@ public class ParkingLot implements Parkable {
     public boolean hasCar(CarTicket carTicket) {
         return this.parkedCarMap.containsKey(carTicket);
     }
+
+    public double getAvailableRoomRate() {/////
+        return this.getAvailableRoom()*1.0 / this.parkingRoomCount;
+    }
 }

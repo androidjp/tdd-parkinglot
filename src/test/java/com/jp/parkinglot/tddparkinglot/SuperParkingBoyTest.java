@@ -11,38 +11,29 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * User: androidjp
- * Date: 2018/5/27
- * Time: 下午10:02
+ * Date: 2018/5/31
+ * Time: 下午11:03
  * Description:
  */
-public class SmartParkingBoyTest {
+public class SuperParkingBoyTest {
 
     @Test
-    public void should_park_the_car_to_the_second_parkingLot_when_the_first_parkingLot_has_less_rooms() throws ParkingLotFilledException {
+    public void should_park_the_car_into_second_parkingLot_when_the_rate_of_empty_room_is_bigger_than_first_one() throws ParkingLotFilledException {
         //given
         List<ParkingLot> parkingLotList = new ArrayList<>();
         ParkingLot p1 = new ParkingLot(3);
         ParkingLot p2 = new ParkingLot(2);
         parkingLotList.add(p1);
         parkingLotList.add(p2);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
 
-        //when
-        smartParkingBoy.park(new Car("A"));
-        //then
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+
+        superParkingBoy.park(new Car("A"));
         assertEquals(2, p1.getAvailableRoom());
         assertEquals(2, p2.getAvailableRoom());
-        //when
-        smartParkingBoy.park(new Car("B"));
-        //then
-        assertEquals(1, p1.getAvailableRoom());
-        assertEquals(2, p2.getAvailableRoom());
-
-        //when
-        smartParkingBoy.park(new Car("C"));
-        //then
-        assertEquals(1, p1.getAvailableRoom());
+        superParkingBoy.park(new Car("B"));
+        assertEquals(2, p1.getAvailableRoom());
         assertEquals(1, p2.getAvailableRoom());
-
     }
+
 }
